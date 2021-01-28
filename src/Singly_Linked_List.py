@@ -1,16 +1,12 @@
 class Node:
-
     """Node for Singly-Linked List"""
-
     def __init__(self, data=None):
         self.data = data
         self.next = None
 
 
 class SinglyLinkedList:
-
     """Singly-Linked List"""
-
     def __init__(self):
         self.head = None
 

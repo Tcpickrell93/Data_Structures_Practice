@@ -1,12 +1,35 @@
-import unittest
-import logging
+import pytest
+from datetime import date, timedelta
 
-import logger
-from Singly_Linked_List import Node, SinglyLinkedList
-
-my_log = logger.Logger(name=__name__, level=logging.DEBUG)
+from src.Singly_Linked_List import SinglyLinkedList, Node
 
 
+@pytest.fixture
+def new_week():
+    week = SinglyLinkedList()
+    day_1 = Node(date.today())
+    day_2 = Node(date.today() + timedelta(days=1))
+    day_3 = Node(date.today() + timedelta(days=2))
+    day_4 = Node(date.today() + timedelta(days=3))
+    day_5 = Node(date.today() + timedelta(days=4))
+    day_6 = Node(date.today() + timedelta(days=5))
+    day_7 = Node(date.today() + timedelta(days=6))
+    day_1.next = day_2
+    day_2.next = day_3
+    day_3.next = day_4
+    day_4.next = day_5
+    day_5.next = day_6
+    day_6.next = day_7
+    week.head = day_1
+    return week
+
+def test_week(new_week):
+    assert new_week.head.data == date.today()
+    assert new_week.head.next.data == date.today() + timedelta(days=1)
+
+    
+
+"""
 class TestSLL(unittest.TestCase):
     def setUp(self):
         self.day_1 = Node("Monday")
@@ -420,7 +443,4 @@ class TestSLL(unittest.TestCase):
         my_log.log.debug("Reverse Week")
         for node in week.generate_list():
             my_log.log.debug(node)
-
-
-if __name__ == '__main__':
-    unittest.main()
+"""
