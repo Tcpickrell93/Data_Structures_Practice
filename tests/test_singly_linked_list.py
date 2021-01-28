@@ -4,6 +4,12 @@ from datetime import date, timedelta
 from src.Singly_Linked_List import SinglyLinkedList, Node
 
 
+def last_node(my_node):
+    temp = my_node
+    while temp.next is not None:
+        temp = temp.next
+    return temp
+
 @pytest.fixture
 def new_week():
     week = SinglyLinkedList()
@@ -27,6 +33,11 @@ def test_week(new_week):
     assert new_week.head.data == date.today()
     assert new_week.head.next.data == date.today() + timedelta(days=1)
 
+def test_insert_node_at_front(new_week):
+    new_day = date.today() + timedelta(days=6)
+    new_week.push(data=new_day)
+    
+    
     
 
 """
