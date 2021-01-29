@@ -37,12 +37,18 @@ class TestWeek:
         assert day6.data == date.today() + timedelta(days=5) 
         assert day7.data == date.today() + timedelta(days=6) 
 
+    def test_count_list(self, new_week):
+        assert new_week.get_count() == 7
+
     def test_insert_node_at_front(self, new_week):
         yesterday = date.today() - timedelta(days=1)
         new_week.push(data=yesterday)
         assert new_week.head.data == yesterday
         today = new_week.head.next
         assert today.data == date.today()
+        assert new_week.get_count() == 8
+
+        
 
 
 """
