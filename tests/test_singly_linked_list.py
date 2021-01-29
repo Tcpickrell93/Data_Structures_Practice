@@ -1,24 +1,21 @@
 import pytest
-from datetime import date, timedelta
 
 from src.Singly_Linked_List import SinglyLinkedList, Node
 
 
-def new_day(days_away):
-    return Node(date.today() + timedelta(days=days_away))
-
-@pytest.fixture(scope="module")
-def new_week():
-    week = SinglyLinkedList()
-    for day in range(7):
-        if week.head is None:
-            week.head = new_day(day)
-            temp = week.head
-            continue
-        else:
-            temp.next = new_day(day) 
-            temp = temp.next
-    yield week
+@pytest.fixture
+def new_list():
+    letters = SinglyLinkedList()
+    a = Node("a")
+    b = Node("b")
+    c = Node("c")
+    d = Node("d")
+    a.next = b
+    b.next = c
+    c.next = d
+    letters.head = a 
+    
+     
 
 class TestWeek:
     def test_week(self, new_week):
