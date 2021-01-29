@@ -7,7 +7,7 @@ from src.Singly_Linked_List import SinglyLinkedList, Node
 def new_day(days_away):
     return Node(date.today() + timedelta(days=days_away))
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def new_week():
     week = SinglyLinkedList()
     for day in range(7):
@@ -20,53 +20,30 @@ def new_week():
             temp = temp.next
     yield week
 
-def test_week(new_week):
-    day1 = new_week.head
-    day2 = day1.next
-    day3 = day2.next
-    day4 = day3.next
-    day5 = day4.next
-    day6 = day5.next
-    day7 = day6.next
-    assert day1.data == date.today()
-    assert day2.data == date.today() + timedelta(days=1) 
-    assert day3.data == date.today() + timedelta(days=2) 
-    assert day4.data == date.today() + timedelta(days=3) 
-    assert day5.data == date.today() + timedelta(days=4) 
-    assert day6.data == date.today() + timedelta(days=5) 
-    assert day7.data == date.today() + timedelta(days=6) 
+class TestWeek:
+    def test_week(self, new_week):
+        day1 = new_week.head
+        day2 = day1.next
+        day3 = day2.next
+        day4 = day3.next
+        day5 = day4.next
+        day6 = day5.next
+        day7 = day6.next
+        assert day1.data == date.today()
+        assert day2.data == date.today() + timedelta(days=1) 
+        assert day3.data == date.today() + timedelta(days=2) 
+        assert day4.data == date.today() + timedelta(days=3) 
+        assert day5.data == date.today() + timedelta(days=4) 
+        assert day6.data == date.today() + timedelta(days=5) 
+        assert day7.data == date.today() + timedelta(days=6) 
 
+    def test_insert_node_at_front(self, new_week):
+        yesterday = date.today() - timedelta(days=1)
+        new_week.push(data=yesterday)
+        assert new_week.head.data == yesterday
+        today = new_week.head.next
+        assert today.data == date.today()
 
-"""
-class TestSLL:
-    @pytest.fixture
-    def new_week(self):
-        week = SinglyLinkedList()
-        day_1 = Node(date.today())
-        day_2 = Node(date.today() + timedelta(days=1))
-        day_3 = Node(date.today() + timedelta(days=2))
-        day_4 = Node(date.today() + timedelta(days=3))
-        day_5 = Node(date.today() + timedelta(days=4))
-        day_6 = Node(date.today() + timedelta(days=5))
-        day_7 = Node(date.today() + timedelta(days=6))
-        day_1.next = day_2
-        day_2.next = day_3
-        day_3.next = day_4
-        day_4.next = day_5
-        day_5.next = day_6
-        day_6.next = day_7
-        week.head = day_1
-        return week
-
-    def test_week(new_week):
-        assert new_week.head.data == date.today()
-        assert new_week.head.next.data == date.today() + timedelta(days=1)
-
-    def test_insert_node_at_front(new_week):
-        new_day = date.today() + timedelta(days=6)
-        new_week.push(data=new_day)
-"""    
-    
 
 """
 class TestSLL(unittest.TestCase):
