@@ -3,7 +3,7 @@ import pytest
 from src.Singly_Linked_List import SinglyLinkedList, Node
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def new_list():
     letters = SinglyLinkedList()
     a = Node("a")
@@ -14,37 +14,30 @@ def new_list():
     b.next = c
     c.next = d
     letters.head = a 
+    yield letters
     
      
+class TestList:
+    def test_letters(self, new_list):
+        node_1 = new_list.head
+        node_2 = node_1.next
+        node_3 = node_2.next
+        node_4 = node_3.next
+        assert node_1.data == "a"
+        assert node_2.data == "b"
+        assert node_3.data == "c"
+        assert node_4.data == "d"
+        
 
-class TestWeek:
-    def test_week(self, new_week):
-        day1 = new_week.head
-        day2 = day1.next
-        day3 = day2.next
-        day4 = day3.next
-        day5 = day4.next
-        day6 = day5.next
-        day7 = day6.next
-        assert day1.data == date.today()
-        assert day2.data == date.today() + timedelta(days=1) 
-        assert day3.data == date.today() + timedelta(days=2) 
-        assert day4.data == date.today() + timedelta(days=3) 
-        assert day5.data == date.today() + timedelta(days=4) 
-        assert day6.data == date.today() + timedelta(days=5) 
-        assert day7.data == date.today() + timedelta(days=6) 
+    def test_count_list(self, new_list):
+        assert new_list.get_count() == 4
 
-    def test_count_list(self, new_week):
-        assert new_week.get_count() == 7
-
-    def test_insert_node_at_front(self, new_week):
-        yesterday = date.today() - timedelta(days=1)
-        new_week.push(data=yesterday)
-        assert new_week.head.data == yesterday
-        today = new_week.head.next
-        assert today.data == date.today()
-        assert new_week.get_count() == 8
-
+    def test_insert_node_at_front(self, new_list):
+        new_list.push("z")
+        assert new_list.get_count() == 5
+        assert new_list.head.data == "z"
+        node_2 = new_list.head.next
+        assert node_2.data == "a"
         
 
 
