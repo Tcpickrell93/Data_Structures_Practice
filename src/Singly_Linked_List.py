@@ -1,9 +1,3 @@
-class Node:
-    """Node for Singly-Linked List"""
-    def __init__(self, data=None):
-        self.data = data
-        self.next = None
-
 class SinglyLinkedListError(Exception):
     """Basic exception for errors raised by singly linked lists"""
     pass
@@ -15,6 +9,18 @@ class NodeIsNone(SinglyLinkedListError):
         self.my_list = my_list
         self.new_node = new_node
 
+class ListIsEmpty(SinglyLinkedListError):
+    """Raised when list is expected but head is None"""
+    def __init__(self, msg, my_list):
+        self.msg = msg
+        self.my_list = my_list
+
+
+class Node:
+    """Node for Singly-Linked List"""
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
 
 class SinglyLinkedList:
     """Singly-Linked List"""
