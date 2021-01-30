@@ -61,7 +61,13 @@ class TestList:
         assert node_2.data == "z"
         assert node_3 is node_ref[1]
 
-    def test_append_node_to_end(self, new_list, node_ref):
+    def test_append_node_to_end_with_insert_after(self, new_list, node_ref):
+        new_list.insert_after(prev_node=node_ref[3], data="z")
+        node_4 = node_ref[3]
+        assert new_list.get_count() == 5
+        assert node_4.next.data == "z"
+
+    def test_append_node_to_end_with_append(self, new_list, node_ref):
         new_list.append(data="z")
         node_4 = node_ref[3]
         assert new_list.get_count() == 5
