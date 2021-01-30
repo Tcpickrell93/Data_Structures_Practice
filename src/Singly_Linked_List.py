@@ -32,20 +32,16 @@ class SinglyLinkedList:
         self.head = new_node
 
     def insert_after(self, prev_node, data):
-        # Check if prev_node exists
-        #if prev_node is None:
-        #    return
-
         # Create new node with provided data
         new_node = Node(data)
 
+        # Set "next" of new node to be the "next" of the previous node
         try:
-            # Set "next" of new node to be the "next" of the previous node
             new_node.next = prev_node.next
         except AttributeError:
             raise NodeIsNone(msg="Previous node is None", 
-                    my_list=self,
-                    new_node=new_node)
+                             my_list=self,
+                             new_node=new_node)
 
         # Set "next" of previous node to be new node
         prev_node.next = new_node
