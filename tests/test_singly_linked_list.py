@@ -61,35 +61,16 @@ class TestList:
         assert node_2.data == "z"
         assert node_3 is node_ref[1]
 
+    def test_append_node_to_end(self, new_list, node_ref):
+        new_list.append(data="z")
+        node_4 = node_ref[3]
+        assert new_list.get_count() == 5
+        assert d.next.data == "z"
+
+
 
 
 """
-    def test_insert_node_at_middle(self):
-        my_log.log.debug("test_insert_node_at_middle")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.insert_after(prev_node=week.head.next, data="Sunday")
-        self.assertIs(week.head, self.day_1)
-        self.assertIs(self.day_1.next, self.day_2)
-        self.assertEqual(self.day_2.next.data, "Sunday")
-        new_node = self.day_2.next
-        self.assertIs(new_node.next, self.day_3)
-
-        my_log.log.debug("Insert Sunday after Tuesday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_append_node_to_end(self):
-        my_log.log.debug("test_append_node_to_end")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.append(data="Monday")
-        self.assertEqual(self.day_7.next.data, "Monday")
-
-        my_log.log.debug("Append Monday to end of list")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
         week = SinglyLinkedList()
