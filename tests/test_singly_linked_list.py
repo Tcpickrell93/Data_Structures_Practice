@@ -65,9 +65,12 @@ class TestList:
         new_list.append(data="z")
         node_4 = node_ref[3]
         assert new_list.get_count() == 5
-        assert d.next.data == "z"
+        assert node_4.next.data == "z"
 
-
+    def test_delete_head_by_key(self, new_list, node_ref):
+        new_list.delete_by_key(key="a")
+        assert new_list.get_count() == 3
+        assert new_list.head is node_ref[1]
 
 
 """
