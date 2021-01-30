@@ -51,6 +51,12 @@ class TestList:
         assert node_1.data == "z"
         assert node_2 is node_ref[0]
 
+    def test_insert_node_at_front_of_empty_list(self):
+        emtpy_list = SinglyLinkedList()
+        emtpy_list.push(data="a")
+        assert emtpy_list.head.data == "a"
+        assert emtpy_list.head.next is None
+
     def test_insert_node_at_middle(self, new_list, node_ref):
         new_list.insert_after(prev_node=new_list.head, data="z")
         node_1 = new_list.head
@@ -90,20 +96,15 @@ class TestList:
         assert new_list.get_count() == 3
         assert node_3.next is None
         
+    def test_delete_nonexistent_node_by_key(self, new_list, node_ref):
+        new_list.delete_by_key(key="x")
+        
+        
+
+
 
 
 """
-    def test_delete_last_node_by_key(self):
-        my_log.log.debug("test_delete_last_node_by_key")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_key(key="Sunday")
-        self.assertIs(self.day_6.next, None)
-
-        my_log.log.debug("Delete Sunday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_nonexistent_node_by_key(self):
         my_log.log.debug("test_delete_nonexistent_key")
         week = SinglyLinkedList()
