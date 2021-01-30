@@ -15,8 +15,7 @@ class SinglyLinkedList:
         new_node = Node(data)
 
         # Update "next" of new node
-        if self.head:
-            new_node.next = self.head
+        new_node.next = self.head
 
         # Set new node to head
         self.head = new_node
