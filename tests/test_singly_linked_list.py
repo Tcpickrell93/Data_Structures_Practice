@@ -72,30 +72,16 @@ class TestList:
         assert new_list.get_count() == 3
         assert new_list.head is node_ref[1]
 
+    def test_delete_middle_node_by_key(self, new_list, node_ref):
+        new_list.delete_by_key(key="b")
+        assert new_list.get_count() == 3
+        assert new_list.head is node_ref[0]
+        assert new_list.head.next is node_ref[2]
+            
+
+
 
 """
-    def test_delete_head_by_key(self):
-        my_log.log.debug("test_delete_head_by_key")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_key(key="Monday")
-        self.assertIs(week.head, self.day_2)
-
-        my_log.log.debug("Delete Monday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_delete_middle_node_by_key(self):
-        my_log.log.debug("test_delete_middle_node_by_key")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_key(key="Tuesday")
-        self.assertIs(week.head.next, self.day_3)
-
-        my_log.log.debug("Delete Tuesday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_last_node_by_key(self):
         my_log.log.debug("test_delete_last_node_by_key")
         week = SinglyLinkedList()
