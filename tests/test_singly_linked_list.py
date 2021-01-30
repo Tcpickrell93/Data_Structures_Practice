@@ -84,7 +84,12 @@ class TestList:
         assert new_list.head is node_ref[0]
         assert new_list.head.next is node_ref[2]
             
-
+    def test_delete_last_node_by_key(self, new_list, node_ref):
+        new_list.delete_by_key(key="d")
+        node_3 = node_ref[2]
+        assert new_list.get_count() == 3
+        assert node_3.next is None
+        
 
 
 """
