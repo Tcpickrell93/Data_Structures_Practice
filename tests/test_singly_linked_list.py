@@ -3,7 +3,7 @@ import pytest
 from src.Singly_Linked_List import SinglyLinkedList, Node
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def new_list():
     letters = SinglyLinkedList()
     a = Node("a")
@@ -14,11 +14,19 @@ def new_list():
     b.next = c
     c.next = d
     letters.head = a 
-    yield letters
+    yield letters 
     
+@pytest.fixture(scope="function")
+def node_ref(new_list):
+    a = new_list.head
+    b = a.next
+    c = b.next
+    d = c.next
+    yield (a, b, c, d)
+
      
 class TestList:
-    def test_letters(self, new_list):
+    def test_letters(self, new_list, node_ref):
         node_1 = new_list.head
         node_2 = node_1.next
         node_3 = node_2.next
@@ -27,67 +35,35 @@ class TestList:
         assert node_2.data == "b"
         assert node_3.data == "c"
         assert node_4.data == "d"
+        assert node_1 is node_ref[0]
+        assert node_2 is node_ref[1]
+        assert node_3 is node_ref[2]
+        assert node_4 is node_ref[3]
         
-
     def test_count_list(self, new_list):
         assert new_list.get_count() == 4
 
-    def test_insert_node_at_front(self, new_list):
-        new_list.push("z")
+    def test_insert_node_at_front(self, new_list, node_ref):
+        new_list.push(data="z")
+        node_1 = new_list.head
+        node_2 = node_1.next
         assert new_list.get_count() == 5
-        assert new_list.head.data == "z"
-        node_2 = new_list.head.next
-        assert node_2.data == "a"
-        
+        assert node_1.data == "z"
+        assert node_2 is node_ref[0]
+
+    def test_insert_node_at_middle(self, new_list, node_ref):
+        new_list.insert_after(prev_node=new_list.head, data="z")
+        node_1 = new_list.head
+        node_2 = node_1.next
+        node_3 = node_2.next
+        assert new_list.get_count() == 5
+        assert node_1 is node_ref[0]
+        assert node_2.data == "z"
+        assert node_3 is node_ref[1]
+
 
 
 """
-class TestSLL(unittest.TestCase):
-    def setUp(self):
-        self.day_1 = Node("Monday")
-        self.day_2 = Node("Tuesday")
-        self.day_3 = Node("Wednesday")
-        self.day_4 = Node("Thursday")
-        self.day_5 = Node("Friday")
-        self.day_6 = Node("Saturday")
-        self.day_7 = Node("Sunday")
-        self.day_1.next = self.day_2
-        self.day_2.next = self.day_3
-        self.day_3.next = self.day_4
-        self.day_4.next = self.day_5
-        self.day_5.next = self.day_6
-        self.day_6.next = self.day_7
-
-    def test_node(self):
-        my_log.log.debug("test_node")
-        self.assertEqual(self.day_1.data, "Monday")
-        self.assertIs(self.day_1.next, self.day_2)
-        self.assertIs(self.day_7.next, None)
-
-    def test_list(self):
-        my_log.log.debug("test_list")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        self.assertIs(week.head, self.day_1)
-        self.assertIs(week.head.next, self.day_2)
-
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_insert_node_at_front(self):
-        my_log.log.debug("test_insert_node_at_front")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.push(data="Sunday")
-        self.assertIs(week.head.next, self.day_1)
-        self.assertEqual(week.head.data, "Sunday")
-        self.assertEqual(week.head.data, self.day_7.data)
-        self.assertIsNot(week.head, self.day_7)
-
-        my_log.log.debug("Push Sunday to front of list")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_insert_node_at_middle(self):
         my_log.log.debug("test_insert_node_at_middle")
         week = SinglyLinkedList()
