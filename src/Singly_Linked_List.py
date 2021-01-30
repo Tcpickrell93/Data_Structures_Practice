@@ -30,8 +30,7 @@ class SinglyLinkedList:
         new_node = Node(data)
 
         # Set "next" of new node to be the "next" of the previous node
-        if prev_node.next:
-            new_node.next = prev_node.next
+        new_node.next = prev_node.next
 
         # Set "next" of previous node to be new node
         prev_node.next = new_node
