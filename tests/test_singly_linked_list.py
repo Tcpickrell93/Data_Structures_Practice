@@ -1,6 +1,11 @@
 import pytest
 
-from src.Singly_Linked_List import SinglyLinkedList, Node
+from src.Singly_Linked_List import (
+    SinglyLinkedList, 
+    Node, 
+    SinglyLinkedListError, 
+    NodeIsNone
+)
 
 
 @pytest.fixture(scope="function")
@@ -72,6 +77,13 @@ class TestList:
         node_4 = node_ref[3]
         assert new_list.get_count() == 5
         assert node_4.next.data == "z"
+
+    def test_insert_node_after_non_node(self, new_list, node_ref):
+        with pytest.raises(NodeIsNone) as excinfo:
+            new_list.insert_after(prev_node=None, data="z")
+        assert excinfo.value.msg == "Previous node is None"
+        assert excinfo.value.my_list == new_list
+        assert excinfo.value.new_node.data == "z"
 
     def test_append_node_to_end(self, new_list, node_ref):
         new_list.append(data="z")
