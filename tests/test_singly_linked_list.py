@@ -1,10 +1,10 @@
 import pytest
 
 from src.Singly_Linked_List import (
-    SinglyLinkedList, 
-    Node, 
-    SinglyLinkedListError, 
-    NodeIsNone
+        SinglyLinkedList, 
+        Node, 
+        SinglyLinkedListError, 
+        NodeIsNone
 )
 
 
