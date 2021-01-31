@@ -1,7 +1,8 @@
 from src.linked_list_exceptions import(
         LinkedListError,
         NodeIsNone,
-        ListIsEmpty
+        ListIsEmpty,
+        NodeNotFound
 )
 
 class Node:
@@ -60,7 +61,8 @@ class SinglyLinkedList:
     def delete_by_key(self, key):
         # Check to see if list is empty
         if self.head is None:
-            raise ListIsEmpty("Cannot delete node from empty list")
+            raise ListIsEmpty(msg="Cannot delete node from empty list",
+                              my_list=self)
 
         # Check to see if key is head node
         temp_node = self.head
@@ -77,7 +79,8 @@ class SinglyLinkedList:
 
         # Check to see if key was found in list
         if not temp_node:
-            return
+            raise NodeNotFound(msg=f"Node with data='{key}' not found",
+                               my_list=self)
 
         # Link previous node to next node
         prev_node.next = temp_node.next

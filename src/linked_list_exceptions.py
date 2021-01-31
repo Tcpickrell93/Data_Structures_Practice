@@ -15,4 +15,9 @@ class ListIsEmpty(LinkedListError):
         self.msg = msg
         self.my_list = my_list
 
+class NodeNotFound(LinkedListError):
+    """Raised when node is not found in list by key"""
+    def __init__(self, msg, my_list):
+        self.msg = msg
+        self.my_list = my_list
 

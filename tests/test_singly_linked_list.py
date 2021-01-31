@@ -7,7 +7,8 @@ from src.singly_linked_list import (
 from src.linked_list_exceptions import (
         LinkedListError,
         NodeIsNone,
-        ListIsEmpty
+        ListIsEmpty,
+        NodeNotFound
 )
 
 
@@ -31,6 +32,11 @@ def node_ref(new_list):
     c = b.next
     d = c.next
     yield (a, b, c, d)
+
+@pytest.fixture(scope="function")
+def empty_list():
+    empty = SinglyLinkedList()
+    yield empty
 
      
 class TestList:
@@ -59,11 +65,10 @@ class TestList:
         assert node_1.data == "z"
         assert node_2 is node_ref[0]
 
-    def test_insert_node_at_front_of_empty_list(self):
-        emtpy_list = SinglyLinkedList()
-        emtpy_list.push(data="a")
-        assert emtpy_list.head.data == "a"
-        assert emtpy_list.head.next is None
+    def test_insert_node_at_front_of_empty_list(self, empty_list):
+        empty_list.push(data="a")
+        assert empty_list.head.data == "a"
+        assert empty_list.head.next is None
 
     def test_insert_node_at_middle(self, new_list, node_ref):
         new_list.insert_after(prev_node=new_list.head, data="z")
@@ -111,11 +116,17 @@ class TestList:
         assert new_list.get_count() == 3
         assert node_3.next is None
         
+    def test_delete_node_from_empty_list(self, empty_list):
+        with pytest.raises(ListIsEmpty) as excinfo:
+            empty_list.delete_by_key(key="a")
+        assert excinfo.value.msg == "Cannot delete node from empty list"
+        assert excinfo.value.my_list == empty_list
+
     def test_delete_nonexistent_node_by_key(self, new_list, node_ref):
         with pytest.raises(NodeNotFound) as excinfo:
             new_list.delete_by_key(key="x")
-        assert value.msg == "Node with data='x' not found"
-        assert value.my_list == new_list
+        assert excinfo.value.msg == "Node with data='x' not found"
+        assert excinfo.value.my_list == new_list
         
         
 
