@@ -88,8 +88,9 @@ class SinglyLinkedList:
             return
 
         # Check to see if position is head node
-        temp_node = self.hea
-            LLlf.head = temp_node.next      # Change head node before deleting
+        temp_node = self.head
+        if position == 0:
+            temp_node.head = temp_node.next      # Change head node before deleting
             return
 
         # Traverse through list to desired position
