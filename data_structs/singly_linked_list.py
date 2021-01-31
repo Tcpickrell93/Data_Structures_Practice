@@ -35,8 +35,7 @@ class SinglyLinkedList:
             new_node.next = prev_node.next
         except AttributeError:
             raise NodeIsNone(msg="Previous node is None", 
-                             my_list=self,
-                             new_node=new_node)
+                             my_list=self)
 
         # Set "next" of previous node to be new node
         prev_node.next = new_node
@@ -103,7 +102,10 @@ class SinglyLinkedList:
                 prev_node = temp_node
                 temp_node = temp_node.next
             else:
-                return
+                count = self.get_count()
+                raise NodeNotFound(msg=f"No node at position={position}. List" \
+                                       f" only has {count} nodes",
+                                   my_list=self)
 
         # Link previous node to next node
         prev_node.next = temp_node.next

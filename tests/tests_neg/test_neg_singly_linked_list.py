@@ -43,7 +43,6 @@ def test_insert_node_after_non_node(new_list, node_ref):
         new_list.insert_after(prev_node=None, data="z")
     assert excinfo.value.msg == "Previous node is None"
     assert excinfo.value.my_list == new_list
-    assert excinfo.value.new_node.data == "z"
 
 def test_delete_node_from_empty_list_by_key(empty_list):
     with pytest.raises(ListIsEmpty) as excinfo:
@@ -62,3 +61,9 @@ def test_delete_node_from_empty_list_by_position(empty_list):
         empty_list.delete_by_pos(position=1)
     assert excinfo.value.msg == "Cannot delete node from empty list"
     assert excinfo.value.my_list == empty_list
+
+def test_delete_nonexistent_node_by_position(new_list):
+    with pytest.raises(NodeNotFound) as excinfo:
+        new_list.delete_by_pos(position=8)
+    assert excinfo.value.msg == "No node at position=8. List only has 4 nodes"
+    

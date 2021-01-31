@@ -106,44 +106,21 @@ def test_delete_head_by_position(new_list, node_ref):
     assert new_list.get_count() == 3
     assert new_list.head is node_ref[1]
         
+def test_delete_middle_node_by_position(new_list, node_ref):
+    new_list.delete_by_pos(position=1)
+    assert new_list.get_count() == 3
+    assert new_list.head.next is node_ref[2]
+
+def test_delete_last_node_by_position(new_list, node_ref):
+    new_list.delete_by_pos(position=3)
+    assert new_list.get_count() == 3
+    assert node_ref[2].next is None 
+
 
 
 
 
 """
-    def test_delete_head_by_position(self):
-        my_log.log.debug("test_delete_head_by_position")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_pos(position=0)
-        self.assertIs(week.head, self.day_2)
-
-        my_log.log.debug("Delete Monday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_delete_middle_node_by_position(self):
-        my_log.log.debug("test_delete_middle_node_by_position")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_pos(position=1)
-        self.assertIs(week.head.next, self.day_3)
-
-        my_log.log.debug("Delete Tuesday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_delete_last_node_by_position(self):
-        my_log.log.debug("test_delete_last_node_by_position")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_pos(position=6)
-        self.assertIs(self.day_6.next, None)
-
-        my_log.log.debug("Delete Sunday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_nonexistent_node_by_position(self):
         my_log.log.debug("test_delete_nonexistent_key")
         week = SinglyLinkedList()
