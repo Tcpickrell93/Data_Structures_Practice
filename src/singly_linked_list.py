@@ -1,4 +1,4 @@
-from LinkedListExceptions import(
+from src.linked_list_exceptions import(
         LinkedListError,
         NodeIsNone,
         ListIsEmpty
