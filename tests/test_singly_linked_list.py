@@ -12,7 +12,7 @@ from src.linked_list_exceptions import (
 )
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def new_list():
     letters = SinglyLinkedList()
     a = Node("a")
@@ -25,7 +25,7 @@ def new_list():
     letters.head = a 
     yield letters 
     
-@pytest.fixture(scope="function")
+@pytest.fixture
 def node_ref(new_list):
     a = new_list.head
     b = a.next
@@ -33,106 +33,104 @@ def node_ref(new_list):
     d = c.next
     yield (a, b, c, d)
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def empty_list():
     empty = SinglyLinkedList()
     yield empty
-
      
-class TestList:
-    def test_letters(self, new_list, node_ref):
-        node_1 = new_list.head
-        node_2 = node_1.next
-        node_3 = node_2.next
-        node_4 = node_3.next
-        assert node_1.data == "a"
-        assert node_2.data == "b"
-        assert node_3.data == "c"
-        assert node_4.data == "d"
-        assert node_1 is node_ref[0]
-        assert node_2 is node_ref[1]
-        assert node_3 is node_ref[2]
-        assert node_4 is node_ref[3]
-        
-    def test_count_list(self, new_list):
-        assert new_list.get_count() == 4
-
-    def test_insert_node_at_front(self, new_list, node_ref):
-        new_list.push(data="z")
-        node_1 = new_list.head
-        node_2 = node_1.next
-        assert new_list.get_count() == 5
-        assert node_1.data == "z"
-        assert node_2 is node_ref[0]
-
-    def test_insert_node_at_front_of_empty_list(self, empty_list):
-        empty_list.push(data="a")
-        assert empty_list.head.data == "a"
-        assert empty_list.head.next is None
-
-    def test_insert_node_at_middle(self, new_list, node_ref):
-        new_list.insert_after(prev_node=new_list.head, data="z")
-        node_1 = new_list.head
-        node_2 = node_1.next
-        node_3 = node_2.next
-        assert new_list.get_count() == 5
-        assert node_1 is node_ref[0]
-        assert node_2.data == "z"
-        assert node_3 is node_ref[1]
-
-    def test_insert_node_to_end(self, new_list, node_ref):
-        new_list.insert_after(prev_node=node_ref[3], data="z")
-        node_4 = node_ref[3]
-        assert new_list.get_count() == 5
-        assert node_4.next.data == "z"
-
-    def test_insert_node_after_non_node(self, new_list, node_ref):
-        with pytest.raises(NodeIsNone) as excinfo:
-            new_list.insert_after(prev_node=None, data="z")
-        assert excinfo.value.msg == "Previous node is None"
-        assert excinfo.value.my_list == new_list
-        assert excinfo.value.new_node.data == "z"
-
-    def test_append_node_to_end(self, new_list, node_ref):
-        new_list.append(data="z")
-        node_4 = node_ref[3]
-        assert new_list.get_count() == 5
-        assert node_4.next.data == "z"
-
-    def test_delete_head_by_key(self, new_list, node_ref):
-        new_list.delete_by_key(key="a")
-        assert new_list.get_count() == 3
-        assert new_list.head is node_ref[1]
-
-    def test_delete_middle_node_by_key(self, new_list, node_ref):
-        new_list.delete_by_key(key="b")
-        assert new_list.get_count() == 3
-        assert new_list.head is node_ref[0]
-        assert new_list.head.next is node_ref[2]
-            
-    def test_delete_last_node_by_key(self, new_list, node_ref):
-        new_list.delete_by_key(key="d")
-        node_3 = node_ref[2]
-        assert new_list.get_count() == 3
-        assert node_3.next is None
-        
-    def test_delete_node_from_empty_list_by_key(self, empty_list):
-        with pytest.raises(ListIsEmpty) as excinfo:
-            empty_list.delete_by_key(key="a")
-        assert excinfo.value.msg == "Cannot delete node from empty list"
-        assert excinfo.value.my_list == empty_list
-
-    def test_delete_nonexistent_node_by_key(self, new_list, node_ref):
-        with pytest.raises(NodeNotFound) as excinfo:
-            new_list.delete_by_key(key="x")
-        assert excinfo.value.msg == "Node with data='x' not found"
-        assert excinfo.value.my_list == new_list
+def test_letters(new_list, node_ref):
+    node_1 = new_list.head
+    node_2 = node_1.next
+    node_3 = node_2.next
+    node_4 = node_3.next
+    assert node_1.data == "a"
+    assert node_2.data == "b"
+    assert node_3.data == "c"
+    assert node_4.data == "d"
+    assert node_1 is node_ref[0]
+    assert node_2 is node_ref[1]
+    assert node_3 is node_ref[2]
+    assert node_4 is node_ref[3]
     
-    def test_delete_node_from_empty_list_by_position(self, empty_list):
-        with pytest.raises(ListIsEmpty) as excinfo:
-            empty_list.delete_by_pos(position=1)
-        assert excinfo.value.msg == "Cannot delete node from empty list"
-        assert excinfo.value.my_list == empty_list
+def test_count_list(new_list):
+    assert new_list.get_count() == 4
+
+def test_insert_node_at_front(new_list, node_ref):
+    new_list.push(data="z")
+    node_1 = new_list.head
+    node_2 = node_1.next
+    assert new_list.get_count() == 5
+    assert node_1.data == "z"
+    assert node_2 is node_ref[0]
+
+def test_insert_node_at_front_of_empty_list(empty_list):
+    empty_list.push(data="a")
+    assert empty_list.head.data == "a"
+    assert empty_list.head.next is None
+
+def test_insert_node_at_middle(new_list, node_ref):
+    new_list.insert_after(prev_node=new_list.head, data="z")
+    node_1 = new_list.head
+    node_2 = node_1.next
+    node_3 = node_2.next
+    assert new_list.get_count() == 5
+    assert node_1 is node_ref[0]
+    assert node_2.data == "z"
+    assert node_3 is node_ref[1]
+
+def test_insert_node_to_end(new_list, node_ref):
+    new_list.insert_after(prev_node=node_ref[3], data="z")
+    node_4 = node_ref[3]
+    assert new_list.get_count() == 5
+    assert node_4.next.data == "z"
+
+def test_insert_node_after_non_node(new_list, node_ref):
+    with pytest.raises(NodeIsNone) as excinfo:
+        new_list.insert_after(prev_node=None, data="z")
+    assert excinfo.value.msg == "Previous node is None"
+    assert excinfo.value.my_list == new_list
+    assert excinfo.value.new_node.data == "z"
+
+def test_append_node_to_end(new_list, node_ref):
+    new_list.append(data="z")
+    node_4 = node_ref[3]
+    assert new_list.get_count() == 5
+    assert node_4.next.data == "z"
+
+def test_delete_head_by_key(new_list, node_ref):
+    new_list.delete_by_key(key="a")
+    assert new_list.get_count() == 3
+    assert new_list.head is node_ref[1]
+
+def test_delete_middle_node_by_key(new_list, node_ref):
+    new_list.delete_by_key(key="b")
+    assert new_list.get_count() == 3
+    assert new_list.head is node_ref[0]
+    assert new_list.head.next is node_ref[2]
+        
+def test_delete_last_node_by_key(new_list, node_ref):
+    new_list.delete_by_key(key="d")
+    node_3 = node_ref[2]
+    assert new_list.get_count() == 3
+    assert node_3.next is None
+    
+def test_delete_node_from_empty_list_by_key(empty_list):
+    with pytest.raises(ListIsEmpty) as excinfo:
+        empty_list.delete_by_key(key="a")
+    assert excinfo.value.msg == "Cannot delete node from empty list"
+    assert excinfo.value.my_list == empty_list
+
+def test_delete_nonexistent_node_by_key(new_list, node_ref):
+    with pytest.raises(NodeNotFound) as excinfo:
+        new_list.delete_by_key(key="x")
+    assert excinfo.value.msg == "Node with data='x' not found"
+    assert excinfo.value.my_list == new_list
+
+def test_delete_node_from_empty_list_by_position(empty_list):
+    with pytest.raises(ListIsEmpty) as excinfo:
+        empty_list.delete_by_pos(position=1)
+    assert excinfo.value.msg == "Cannot delete node from empty list"
+    assert excinfo.value.my_list == empty_list
     
         
 
@@ -140,16 +138,6 @@ class TestList:
 
 
 """
-    def test_delete_nonexistent_node_by_key(self):
-        my_log.log.debug("test_delete_nonexistent_key")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_key(key="Yesterday")
-
-        my_log.log.debug("Delete Yesterday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_head_by_position(self):
         my_log.log.debug("test_delete_head_by_position")
         week = SinglyLinkedList()
