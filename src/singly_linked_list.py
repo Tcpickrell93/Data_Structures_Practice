@@ -88,7 +88,8 @@ class SinglyLinkedList:
     def delete_by_pos(self, position):
         # Check to see if list is empty
         if self.head is None:
-            return
+            raise ListIsEmpty(msg="Cannot delete node from empty list",
+                              my_list=self)
 
         # Check to see if position is head node
         temp_node = self.head
