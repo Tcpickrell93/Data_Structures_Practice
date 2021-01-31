@@ -1,10 +1,10 @@
 import pytest
 
-from src.singly_linked_list import (
+from data_structs.singly_linked_list import (
         SinglyLinkedList, 
         Node 
 )
-from src.linked_list_exceptions import (
+from exc.linked_list_exceptions import (
         LinkedListError,
         NodeIsNone,
         ListIsEmpty,
