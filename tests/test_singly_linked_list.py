@@ -116,7 +116,7 @@ class TestList:
         assert new_list.get_count() == 3
         assert node_3.next is None
         
-    def test_delete_node_from_empty_list(self, empty_list):
+    def test_delete_node_from_empty_list_by_key(self, empty_list):
         with pytest.raises(ListIsEmpty) as excinfo:
             empty_list.delete_by_key(key="a")
         assert excinfo.value.msg == "Cannot delete node from empty list"
@@ -127,7 +127,13 @@ class TestList:
             new_list.delete_by_key(key="x")
         assert excinfo.value.msg == "Node with data='x' not found"
         assert excinfo.value.my_list == new_list
-        
+    
+    def test_delete_node_from_empty_list_by_position(self, empty_list):
+        with pytest.raises(ListIsEmpty) as excinfo:
+            empty_list.delete_by_pos(position=1)
+        assert excinfo.value.msg == "Cannot delete node from empty list"
+        assert excinfo.value.my_list == empty_list
+    
         
 
 
