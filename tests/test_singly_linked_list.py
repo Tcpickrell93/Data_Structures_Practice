@@ -112,7 +112,10 @@ class TestList:
         assert node_3.next is None
         
     def test_delete_nonexistent_node_by_key(self, new_list, node_ref):
-        new_list.delete_by_key(key="x")
+        with pytest.raises(NodeNotFound) as excinfo:
+            new_list.delete_by_key(key="x")
+        assert value.msg == "Node with data='x' not found"
+        assert value.my_list == new_list
         
         
 
