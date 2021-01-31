@@ -92,12 +92,12 @@ class SinglyLinkedList:
                               my_list=self)
 
         # Check to see if position is head node
-        temp_node = self.head
         if position == 0:
-            temp_node.head = temp_node.next      # Change head node before deleting
+            self.head = self.head.next      # Change head node before deleting
             return
 
         # Traverse through list to desired position
+        temp_node = self.head
         for i in range(position):
             if temp_node.next:
                 prev_node = temp_node

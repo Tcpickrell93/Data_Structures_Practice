@@ -1,3 +1,4 @@
+"""
 import unittest
 import logging
 
@@ -484,3 +485,4 @@ class TestDLL(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+"""

@@ -4,12 +4,6 @@ from data_structs.singly_linked_list import (
         SinglyLinkedList, 
         Node 
 )
-from exc.linked_list_exceptions import (
-        LinkedListError,
-        NodeIsNone,
-        ListIsEmpty,
-        NodeNotFound
-)
 
 
 @pytest.fixture
@@ -38,7 +32,7 @@ def empty_list():
     empty = SinglyLinkedList()
     yield empty
      
-def test_letters(new_list, node_ref):
+def test_list(new_list, node_ref):
     node_1 = new_list.head
     node_2 = node_1.next
     node_3 = node_2.next
@@ -55,7 +49,7 @@ def test_letters(new_list, node_ref):
 def test_count_list(new_list):
     assert new_list.get_count() == 4
 
-def test_insert_node_at_front(new_list, node_ref):
+def test_push_node_to_front(new_list, node_ref):
     new_list.push(data="z")
     node_1 = new_list.head
     node_2 = node_1.next
@@ -63,12 +57,12 @@ def test_insert_node_at_front(new_list, node_ref):
     assert node_1.data == "z"
     assert node_2 is node_ref[0]
 
-def test_insert_node_at_front_of_empty_list(empty_list):
+def test_push_node_to_front_of_empty_list(empty_list):
     empty_list.push(data="a")
     assert empty_list.head.data == "a"
     assert empty_list.head.next is None
 
-def test_insert_node_at_middle(new_list, node_ref):
+def test_insert_after_node_at_middle(new_list, node_ref):
     new_list.insert_after(prev_node=new_list.head, data="z")
     node_1 = new_list.head
     node_2 = node_1.next
@@ -78,18 +72,11 @@ def test_insert_node_at_middle(new_list, node_ref):
     assert node_2.data == "z"
     assert node_3 is node_ref[1]
 
-def test_insert_node_to_end(new_list, node_ref):
+def test_insert_after_node_at_end(new_list, node_ref):
     new_list.insert_after(prev_node=node_ref[3], data="z")
     node_4 = node_ref[3]
     assert new_list.get_count() == 5
     assert node_4.next.data == "z"
-
-def test_insert_node_after_non_node(new_list, node_ref):
-    with pytest.raises(NodeIsNone) as excinfo:
-        new_list.insert_after(prev_node=None, data="z")
-    assert excinfo.value.msg == "Previous node is None"
-    assert excinfo.value.my_list == new_list
-    assert excinfo.value.new_node.data == "z"
 
 def test_append_node_to_end(new_list, node_ref):
     new_list.append(data="z")
@@ -114,24 +101,10 @@ def test_delete_last_node_by_key(new_list, node_ref):
     assert new_list.get_count() == 3
     assert node_3.next is None
     
-def test_delete_node_from_empty_list_by_key(empty_list):
-    with pytest.raises(ListIsEmpty) as excinfo:
-        empty_list.delete_by_key(key="a")
-    assert excinfo.value.msg == "Cannot delete node from empty list"
-    assert excinfo.value.my_list == empty_list
-
-def test_delete_nonexistent_node_by_key(new_list, node_ref):
-    with pytest.raises(NodeNotFound) as excinfo:
-        new_list.delete_by_key(key="x")
-    assert excinfo.value.msg == "Node with data='x' not found"
-    assert excinfo.value.my_list == new_list
-
-def test_delete_node_from_empty_list_by_position(empty_list):
-    with pytest.raises(ListIsEmpty) as excinfo:
-        empty_list.delete_by_pos(position=1)
-    assert excinfo.value.msg == "Cannot delete node from empty list"
-    assert excinfo.value.my_list == empty_list
-    
+def test_delete_head_by_position(new_list, node_ref):
+    new_list.delete_by_pos(position=0)
+    assert new_list.get_count() == 3
+    assert new_list.head is node_ref[1]
         
 
 
