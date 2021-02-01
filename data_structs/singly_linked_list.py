@@ -2,7 +2,8 @@ from exc.linked_list_exceptions import(
         LinkedListError,
         NodeIsNone,
         ListIsEmpty,
-        NodeNotFound
+        NodeNotFound,
+        InvalidPosition
 )
 
 class Node:
@@ -90,6 +91,11 @@ class SinglyLinkedList:
             raise ListIsEmpty(msg="Cannot delete node from empty list",
                               my_list=self)
 
+        # Make sure position is within valid range
+        if position < 0:
+            raise InvalidPosition(msg="Position must be a positive integer",
+                                  my_list=self)
+            
         # Check to see if position is head node
         if position == 0:
             self.head = self.head.next      # Change head node before deleting

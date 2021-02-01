@@ -8,7 +8,8 @@ from exc.linked_list_exceptions import (
         LinkedListError,
         NodeIsNone,
         ListIsEmpty,
-        NodeNotFound
+        NodeNotFound,
+        InvalidPosition
 )
 
 
@@ -67,3 +68,7 @@ def test_delete_nonexistent_node_by_position(new_list):
         new_list.delete_by_pos(position=8)
     assert excinfo.value.msg == "No node at position=8. List only has 4 nodes"
     
+def test_delete_node_at_neg_position(new_list):
+    with pytest.raises(InvalidPosition) as excinfo:
+        new_list.delete_by_pos(position=-5)
+    assert excinfo.value.msg == "Position must be a positive integer"

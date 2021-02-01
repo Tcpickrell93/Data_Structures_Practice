@@ -20,3 +20,9 @@ class NodeNotFound(LinkedListError):
         self.msg = msg
         self.my_list = my_list
 
+class InvalidPosition(LinkedListError):
+    """Raised when position is not within valid range"""
+    def __init__(self, msg, my_list):
+        self.msg = msg
+        self.my_list = my_list
+        
