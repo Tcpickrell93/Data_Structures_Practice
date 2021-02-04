@@ -1,10 +1,12 @@
 import pytest
 
-from data_structs.singly_linked_list import (
+"""
+from ..data_structs.singly_linked_list import (
         SinglyLinkedList, 
         Node 
 )
-
+"""
+import Data_Structures.data_structs.singly_linked_list as sll
 
 @pytest.fixture
 def new_list():
@@ -116,7 +118,8 @@ def test_delete_last_node_by_position(new_list, node_ref):
     assert new_list.get_count() == 3
     assert node_ref[2].next is None 
 
-
+if __name__ == "__main__":
+    pytest.main()
 
 
 
