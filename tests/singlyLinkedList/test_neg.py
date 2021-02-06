@@ -1,9 +1,6 @@
 import pytest
 
-from dataStructs.singly_linked_list import (
-        SinglyLinkedList, 
-        Node 
-)
+from dataStructs.singly_linked_list import SinglyLinkedList, Node
 from dataStructs.linked_list_exceptions import (
         LinkedListError,
         NodeIsNone,

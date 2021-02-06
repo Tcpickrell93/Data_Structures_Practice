@@ -1,14 +1,14 @@
+"""Contains class for singly-linked lists and class for nodes within lists"""
+
 from .linked_list_exceptions import(
-        LinkedListError,
         NodeIsNone,
         ListIsEmpty,
         NodeNotFound,
         InvalidPosition
 )
 
-
 class Node:
-    """Node for Singly-Linked List"""
+    """Singly-Linked List Node"""
     def __init__(self, data=None):
         self.data = data
         self.next = None
@@ -19,6 +19,7 @@ class SinglyLinkedList:
         self.head = None
 
     def push(self, data):
+        """Create new node from data and add to beginning of list"""
         # Create new node with provided data
         new_node = Node(data)
 
@@ -29,6 +30,7 @@ class SinglyLinkedList:
         self.head = new_node
 
     def insert_after(self, prev_node, data):
+        """Create new node from data and add after provided node"""
         # Create new node with provided data
         new_node = Node(data)
 
@@ -36,13 +38,14 @@ class SinglyLinkedList:
         try:
             new_node.next = prev_node.next
         except AttributeError:
-            raise NodeIsNone(msg="Previous node is None", 
+            raise NodeIsNone(msg="Previous node is None",
                              my_list=self)
 
         # Set "next" of previous node to be new node
         prev_node.next = new_node
 
     def append(self, data):
+        """Create new node from data and add to end of list"""
         # Create new node with provided data
         new_node = Node(data)
 
@@ -60,6 +63,7 @@ class SinglyLinkedList:
         temp_node.next = new_node
 
     def delete_by_key(self, key):
+        """Delete node from list where key matches the value stored in data"""
         # Check to see if list is empty
         if self.head is None:
             raise ListIsEmpty(msg="Cannot delete node from empty list",
@@ -87,6 +91,7 @@ class SinglyLinkedList:
         prev_node.next = temp_node.next
 
     def delete_by_pos(self, position):
+        """Delete Node by postion within list"""
         # Check to see if list is empty
         if self.head is None:
             raise ListIsEmpty(msg="Cannot delete node from empty list",
@@ -96,7 +101,7 @@ class SinglyLinkedList:
         if position < 0:
             raise InvalidPosition(msg="Position must be a positive integer",
                                   my_list=self)
-            
+
         # Check to see if position is head node
         if position == 0:
             self.head = self.head.next      # Change head node before deleting
@@ -110,14 +115,17 @@ class SinglyLinkedList:
                 temp_node = temp_node.next
             else:
                 count = self.get_count()
-                raise NodeNotFound(msg=f"No node at position={position}. List" \
-                                       f" only has {count} nodes",
-                                   my_list=self)
+                msg = (
+                    f"No node at position={position}. "
+                    f"List only has {count} nodes"
+                )
+                raise NodeNotFound(msg=msg, my_list=self)
 
         # Link previous node to next node
         prev_node.next = temp_node.next
 
     def swap_nodes(self, key_1, key_2):
+        """Swap two nodes in list identified by provided key values"""
         # Check if keys are the same
         if key_1 == key_2:
             return
@@ -158,6 +166,7 @@ class SinglyLinkedList:
         temp_2.next = temp_3
 
     def reverse_list(self):
+        """Reverse order of the list"""
         cur_node = self.head
         prev_node = None
         while cur_node:
@@ -168,18 +177,21 @@ class SinglyLinkedList:
         self.head = prev_node
 
     def print_list(self):
+        """Print data from each node in list"""
         temp_node = self.head
         while temp_node:
             print(temp_node.data)
             temp_node = temp_node.next
 
     def generate_list(self):
+        """Generator function to yield nodes from list"""
         temp_node = self.head
         while temp_node:
             yield temp_node.data
             temp_node = temp_node.next
 
     def get_count(self):
+        """Return number of nodes in list"""
         count = 0
         temp_node = self.head
         while temp_node:

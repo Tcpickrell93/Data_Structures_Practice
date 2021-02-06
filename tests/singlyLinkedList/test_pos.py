@@ -1,8 +1,5 @@
 import pytest
-from dataStructs.singly_linked_list import (
-        SinglyLinkedList, 
-        Node 
-)
+from dataStructs.singly_linked_list import SinglyLinkedList, Node
 
 
 @pytest.fixture
@@ -118,16 +115,6 @@ def test_delete_last_node_by_position(new_list, node_ref):
 
 
 """
-    def test_delete_nonexistent_node_by_position(self):
-        my_log.log.debug("test_delete_nonexistent_key")
-        week = SinglyLinkedList()
-        week.head = self.day_1
-        week.delete_by_pos(position=7)
-
-        my_log.log.debug("Delete position 7")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_swap_nonadjacent_nodes_key_1_as_head(self):
         my_log.log.debug("test_swap_nonadjacent_nodes_key_1_as_head")
         week = SinglyLinkedList()
