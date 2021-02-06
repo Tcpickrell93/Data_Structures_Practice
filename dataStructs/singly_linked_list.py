@@ -4,7 +4,8 @@ from .linked_list_exceptions import(
         NodeIsNone,
         ListIsEmpty,
         NodeNotFound,
-        InvalidPosition
+        InvalidPosition,
+        SameNode
 )
 
 class Node:
@@ -128,7 +129,8 @@ class SinglyLinkedList:
         """Swap two nodes in list identified by provided key values"""
         # Check if keys are the same
         if key_1 == key_2:
-            return
+            msg="Keys entered are the same. Cannot swap a node with itself."
+            raise SameNode(msg=msg, my_list=self)
 
         # Find key_1 node
         prev_1 = None
@@ -145,8 +147,13 @@ class SinglyLinkedList:
             temp_2 = temp_2.next
 
         # Can't swap if one of them does not exist in list
-        if temp_1 is None or temp_2 is None:
-            return
+        if temp_1 is None:
+            raise NodeNotFound(msg=f"Node with data='{key_1}' not found",
+                               my_list=self)
+
+        if temp_2 is None:
+            raise NodeNotFound(msg=f"Node with data='{key_2}' not found",
+                               my_list=self)
 
         # Check if key_1 is head
         if prev_1:

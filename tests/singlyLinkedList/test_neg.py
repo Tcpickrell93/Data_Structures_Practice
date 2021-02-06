@@ -6,7 +6,8 @@ from dataStructs.linked_list_exceptions import (
         NodeIsNone,
         ListIsEmpty,
         NodeNotFound,
-        InvalidPosition
+        InvalidPosition,
+        SameNode
 )
 
 
@@ -69,3 +70,19 @@ def test_delete_node_at_neg_position(new_list):
     with pytest.raises(InvalidPosition) as excinfo:
         new_list.delete_by_pos(position=-5)
     assert excinfo.value.msg == "Position must be a positive integer"
+
+def test_swap_nodes_key_1_nonexistent(new_list):
+    with pytest.raises(NodeNotFound) as excinfo:
+        new_list.swap_nodes(key_1="x", key_2="b")
+    assert excinfo.value.msg == "Node with data='x' not found"
+
+def test_swap_nodes_key_2_nonexistent(new_list):
+    with pytest.raises(NodeNotFound) as excinfo:
+        new_list.swap_nodes(key_1="b", key_2="x")
+    assert excinfo.value.msg == "Node with data='x' not found"
+
+def test_swap_nodes_with_key_1_same_as_key_2(new_list, node_ref):
+    with pytest.raises(SameNode) as excinfo:
+        new_list.swap_nodes(key_1="b", key_2="b")
+    msg = "Keys entered are the same. Cannot swap a node with itself."
+    assert excinfo.value.msg == msg 

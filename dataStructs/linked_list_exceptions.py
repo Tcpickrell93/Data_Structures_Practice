@@ -26,3 +26,8 @@ class InvalidPosition(LinkedListError):
         self.msg = msg
         self.my_list = my_list
         
+class SameNode(LinkedListError):
+    """Raised when node is called to be swapped with itself"""
+    def __init__(self, msg, my_list):
+        self.msg = msg
+        self.my_list = my_list
