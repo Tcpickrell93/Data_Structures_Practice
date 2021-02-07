@@ -1,14 +1,58 @@
-"""
-import unittest
-import logging
+"""Contains tests for positive functionality in doubly_linked_list"""
 
-import logger
+import pytest
 from Doubly_Linked_List import Node, DoublyLinkedList
 
-my_log = logger.Logger(name=__name__, level=logging.DEBUG)
+@pytest.fixture
+def new_list():
+    """Creates simple singly-linked list for each test to use"""
+    letters = SinglyLinkedList()
+    a = Node("a")
+    b = Node("b")
+    c = Node("c")
+    d = Node("d")
+    a.next = b
+    b.next = c
+    c.next = d
+    letters.head = a
+    yield letters
+
+@pytest.fixture
+def node_ref(new_list):
+    """Used as reference for objects' initial positions in list"""
+    a = new_list.head
+    b = a.next
+    c = b.next
+    d = c.next
+    yield (a, b, c, d)
+
+@pytest.fixture
+def empty_list():
+    """Creates an empty singly-linked list"""
+    empty = SinglyLinkedList()
+    yield empty
+
+def test_list(new_list, node_ref):
+    node_1 = new_list.head
+    node_2 = node_1.next
+    node_3 = node_2.next
+    node_4 = node_3.next
+    assert node_1.data == "a"
+    assert node_2.data == "b"
+    assert node_3.data == "c"
+    assert node_4.data == "d"
+    assert node_1 is node_ref[0]
+    assert node_2 is node_ref[1]
+    assert node_3 is node_ref[2]
+    assert node_4 is node_ref[3]
+    assert node_4.prev is node_3
+    assert node_3.prev is node_2
+    assert node_2.prev is node_1
+    assert node_1.prev is None
+    
 
 
-class TestDLL(unittest.TestCase):
+"""
     def setUp(self):
         self.day_1 = Node("Monday")
         self.day_2 = Node("Tuesday")
@@ -481,8 +525,4 @@ class TestDLL(unittest.TestCase):
         my_log.log.debug("Reverse Week")
         for node in week.generate_list():
             my_log.log.debug(node)
-
-
-if __name__ == '__main__':
-    unittest.main()
 """
