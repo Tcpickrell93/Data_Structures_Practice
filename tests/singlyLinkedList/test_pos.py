@@ -4,6 +4,7 @@ from dataStructs.singly_linked_list import SinglyLinkedList, Node
 
 @pytest.fixture
 def new_list():
+    """Creates simple singly-linked list for each test to use"""
     letters = SinglyLinkedList()
     a = Node("a")
     b = Node("b")
@@ -12,11 +13,12 @@ def new_list():
     a.next = b
     b.next = c
     c.next = d
-    letters.head = a 
-    yield letters 
-    
+    letters.head = a
+    yield letters
+
 @pytest.fixture
 def node_ref(new_list):
+    """Used as reference for objects' initial positions in list"""
     a = new_list.head
     b = a.next
     c = b.next
@@ -25,9 +27,10 @@ def node_ref(new_list):
 
 @pytest.fixture
 def empty_list():
+    """Creates an empty singly-linked list"""
     empty = SinglyLinkedList()
     yield empty
-     
+
 def test_list(new_list, node_ref):
     node_1 = new_list.head
     node_2 = node_1.next
@@ -41,7 +44,7 @@ def test_list(new_list, node_ref):
     assert node_2 is node_ref[1]
     assert node_3 is node_ref[2]
     assert node_4 is node_ref[3]
-    
+
 def test_count_list(new_list):
     assert new_list.get_count() == 4
 
@@ -94,18 +97,18 @@ def test_delete_middle_node_by_key(new_list, node_ref):
     assert new_list.get_count() == 3
     assert new_list.head is node_ref[0]
     assert new_list.head.next is node_ref[2]
-        
+
 def test_delete_last_node_by_key(new_list, node_ref):
     new_list.delete_by_key(key="d")
     node_3 = node_ref[2]
     assert new_list.get_count() == 3
     assert node_3.next is None
-    
+
 def test_delete_head_by_position(new_list, node_ref):
     new_list.delete_by_pos(position=0)
     assert new_list.get_count() == 3
     assert new_list.head is node_ref[1]
-        
+
 def test_delete_middle_node_by_position(new_list, node_ref):
     new_list.delete_by_pos(position=1)
     assert new_list.get_count() == 3
@@ -114,7 +117,7 @@ def test_delete_middle_node_by_position(new_list, node_ref):
 def test_delete_last_node_by_position(new_list, node_ref):
     new_list.delete_by_pos(position=3)
     assert new_list.get_count() == 3
-    assert node_ref[2].next is None 
+    assert node_ref[2].next is None
 
 def test_swap_nonadjacent_nodes_key_1_as_head(new_list, node_ref):
     new_list.swap_nodes(key_1="a", key_2="c")

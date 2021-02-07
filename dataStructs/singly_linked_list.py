@@ -150,7 +150,6 @@ class SinglyLinkedList:
         if temp_1 is None:
             raise NodeNotFound(msg=f"Node with data='{key_1}' not found",
                                my_list=self)
-
         if temp_2 is None:
             raise NodeNotFound(msg=f"Node with data='{key_2}' not found",
                                my_list=self)
