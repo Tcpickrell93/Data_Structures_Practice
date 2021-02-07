@@ -91,6 +91,14 @@ def test_insert_after_node_at_end(new_list, node_ref):
     assert node_5.data == "z"
     assert node_5.prev is node_4
 
+def test_append_node_to_end(new_list, node_ref):
+    new_list.append(data="z")
+    node_4 = node_ref[3]
+    node_5 = node_4.next
+    assert new_list.get_count() == 5
+    assert node_5.data == "z"
+    assert node_5.prev is node_4
+
 """
     def test_append_node_to_end(self):
         my_log.log.debug("test_append_node_to_end")
