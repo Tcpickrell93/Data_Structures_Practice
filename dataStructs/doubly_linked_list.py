@@ -47,7 +47,8 @@ class DoublyLinkedList:
         new_node.prev = prev_node
         new_node.next = next_node
         prev_node.next = new_node
-        next_node.prev = new_node
+        if next_node:
+            next_node.prev = new_node
 
     def append(self, data):
         """Create new node from data and add to end of list"""

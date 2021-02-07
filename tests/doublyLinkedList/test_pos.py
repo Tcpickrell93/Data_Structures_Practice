@@ -82,26 +82,16 @@ def test_insert_after_node_at_middle(new_list, node_ref):
     assert node_2.prev is node_1 
     assert node_3 is node_ref[1]
     assert node_3.prev is node_2 
-    
+
+def test_insert_after_node_at_end(new_list, node_ref):
+    new_list.insert_after(prev_node=node_ref[3], data="z")
+    node_4 = node_ref[3]
+    node_5 = node_4.next
+    assert new_list.get_count() == 5
+    assert node_5.data == "z"
+    assert node_5.prev is node_4
+
 """
-    def test_insert_node_at_middle(self):
-        my_log.log.debug("test_insert_node_at_middle")
-        week = DoublyLinkedList()
-        week.head = self.day_1
-        week.insert_after(prev_node=week.head.next, data="Sunday")
-        self.assertIs(week.head, self.day_1)
-        self.assertIs(self.day_1.next, self.day_2)
-        self.assertEqual(self.day_2.next.data, "Sunday")
-        new_node = self.day_2.next
-        self.assertIs(new_node.next, self.day_3)
-        self.assertIs(new_node.prev, self.day_2)
-        self.assertIs(self.day_3.prev, new_node)
-        self.assertIs(self.day_2.next, new_node)
-
-        my_log.log.debug("Push Sunday after Tuesday")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_append_node_to_end(self):
         my_log.log.debug("test_append_node_to_end")
         week = DoublyLinkedList()
