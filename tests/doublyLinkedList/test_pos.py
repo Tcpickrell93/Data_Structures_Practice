@@ -56,61 +56,16 @@ def test_list(new_list, node_ref):
 def test_count_list(new_list):
     assert new_list.get_count() == 4
 
+def test_push_node_to_front(new_list, node_ref):
+    new_list.push(data="z")
+    node_1 = new_list.head
+    node_2 = node_1.next
+    assert new_list.get_count() == 5
+    assert node_1.data == "z"
+    assert node_2 is node_ref[0]
+    assert node_2.prev is node_1
+
 """
-    def setUp(self):
-        self.day_1 = Node("Monday")
-        self.day_2 = Node("Tuesday")
-        self.day_3 = Node("Wednesday")
-        self.day_4 = Node("Thursday")
-        self.day_5 = Node("Friday")
-        self.day_6 = Node("Saturday")
-        self.day_7 = Node("Sunday")
-        self.day_1.next = self.day_2
-        self.day_2.next = self.day_3
-        self.day_3.next = self.day_4
-        self.day_4.next = self.day_5
-        self.day_5.next = self.day_6
-        self.day_6.next = self.day_7
-        self.day_2.prev = self.day_1
-        self.day_3.prev = self.day_2
-        self.day_4.prev = self.day_3
-        self.day_5.prev = self.day_4
-        self.day_6.prev = self.day_5
-        self.day_7.prev = self.day_6
-
-    def test_node(self):
-        my_log.log.debug("test_node")
-        self.assertEqual(self.day_1.data, "Monday")
-        self.assertIs(self.day_1.next, self.day_2)
-        self.assertIs(self.day_1.prev, None)
-        self.assertIs(self.day_7.next, None)
-
-    def test_list(self):
-        my_log.log.debug("test_list")
-        week = DoublyLinkedList()
-        week.head = self.day_1
-        self.assertIs(week.head, self.day_1)
-        self.assertIs(week.head.next, self.day_2)
-        self.assertIs(week.head.prev, None)
-
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
-    def test_insert_node_at_front(self):
-        my_log.log.debug("test_insert_node_at_front")
-        week = DoublyLinkedList()
-        week.head = self.day_1
-        week.push(data="Sunday")
-        self.assertIs(week.head.next, self.day_1)
-        self.assertEqual(week.head.data, "Sunday")
-        self.assertEqual(week.head.data, self.day_7.data)
-        self.assertIsNot(week.head, self.day_7)
-        self.assertIs(self.day_1.prev, week.head)
-
-        my_log.log.debug("Push Sunday to front of list")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_insert_node_at_middle(self):
         my_log.log.debug("test_insert_node_at_middle")
         week = DoublyLinkedList()
