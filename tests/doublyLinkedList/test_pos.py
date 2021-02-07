@@ -71,7 +71,18 @@ def test_push_node_to_front_of_empty_list(empty_list):
     assert empty_list.head.next is None
     assert empty_list.head.prev is None
 
-
+def test_insert_after_node_at_middle(new_list, node_ref):
+    new_list.insert_after(prev_node=new_list.head, data="z")
+    node_1 = new_list.head
+    node_2 = node_1.next
+    node_3 = node_2.next
+    assert new_list.get_count() == 5
+    assert node_1 is node_ref[0]
+    assert node_2.data == "z"
+    assert node_2.prev is node_1 
+    assert node_3 is node_ref[1]
+    assert node_3.prev is node_2 
+    
 """
     def test_insert_node_at_middle(self):
         my_log.log.debug("test_insert_node_at_middle")
