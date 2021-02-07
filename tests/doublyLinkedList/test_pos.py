@@ -143,6 +143,17 @@ def test_delete_last_node_by_position(new_list, node_ref):
     assert new_list.get_count() == 3
     assert node_ref[2].next is None
 
+def test_swap_nonadjacent_nodes_key_1_as_head(new_list, node_ref):
+    new_list.swap_nodes(key_1="a", key_2="c")
+    assert new_list.head is node_ref[2]
+    assert node_ref[2].next is node_ref[1]
+    assert node_ref[1].next is node_ref[0]
+    assert node_ref[0].next is node_ref[3]
+    assert node_ref[3].next is None
+    assert node_ref[1].prev is node_ref[2]
+    assert node_ref[0].prev is node_ref[1]
+    assert node_ref[3].prev is node_ref[0]
+
 """
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
