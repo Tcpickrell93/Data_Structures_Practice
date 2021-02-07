@@ -104,6 +104,12 @@ def test_append_node_to_empty_list(empty_list):
     assert empty_list.head.data == "a"
     assert empty_list.head.next is None
     assert empty_list.head.prev is None
+
+def test_delete_head_by_key(new_list, node_ref):
+    new_list.delete_by_key(key="a")
+    assert new_list.get_count() == 3
+    assert new_list.head is node_ref[1]
+
 """
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
