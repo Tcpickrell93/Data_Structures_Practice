@@ -1,12 +1,12 @@
 """Contains tests for positive functionality in doubly_linked_list"""
 
 import pytest
-from Doubly_Linked_List import Node, DoublyLinkedList
+from dataStructs.doubly_linked_list import Node, DoublyLinkedList
 
 @pytest.fixture
 def new_list():
     """Creates simple singly-linked list for each test to use"""
-    letters = SinglyLinkedList()
+    letters = DoublyLinkedList()
     a = Node("a")
     b = Node("b")
     c = Node("c")
@@ -14,6 +14,9 @@ def new_list():
     a.next = b
     b.next = c
     c.next = d
+    d.prev = c
+    c.prev = b
+    b.prev = a
     letters.head = a
     yield letters
 
