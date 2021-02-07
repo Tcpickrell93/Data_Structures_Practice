@@ -219,6 +219,17 @@ def test_swap_nonadjacent_nodes_key_2_as_last_node(new_list, node_ref):
     assert node_ref[3].prev is node_ref[0]
     assert node_ref[2].prev is node_ref[3]
     assert node_ref[1].prev is node_ref[2]
+
+def test_swap_adjacent_nodes_key_2_as_last_node(new_list, node_ref):
+    new_list.swap_nodes(key_1="c", key_2="d")
+    assert new_list.head is node_ref[0]
+    assert node_ref[0].next is node_ref[1]
+    assert node_ref[1].next is node_ref[3]
+    assert node_ref[3].next is node_ref[2]
+    assert node_ref[2].next is None
+    assert node_ref[1].prev is node_ref[0]
+    assert node_ref[3].prev is node_ref[1]
+    assert node_ref[2].prev is node_ref[3]
 """
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
