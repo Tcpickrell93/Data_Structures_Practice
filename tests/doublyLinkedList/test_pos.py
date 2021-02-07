@@ -131,6 +131,13 @@ def test_delete_head_by_position(new_list, node_ref):
     assert new_list.head is node_ref[1]
     assert node_ref[1].prev is None
 
+def test_delete_middle_node_by_position(new_list, node_ref):
+    new_list.delete_by_pos(position=1)
+    node_2 = new_list.head.next
+    assert new_list.get_count() == 3
+    assert node_2 is node_ref[2]
+    assert node_2.prev is new_list.head
+
 """
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
