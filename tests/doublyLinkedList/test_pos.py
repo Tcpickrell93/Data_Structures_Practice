@@ -99,18 +99,12 @@ def test_append_node_to_end(new_list, node_ref):
     assert node_5.data == "z"
     assert node_5.prev is node_4
 
+def test_append_node_to_empty_list(empty_list):
+    empty_list.append(data="a")
+    assert empty_list.head.data == "a"
+    assert empty_list.head.next is None
+    assert empty_list.head.prev is None
 """
-    def test_append_node_to_end(self):
-        my_log.log.debug("test_append_node_to_end")
-        week = DoublyLinkedList()
-        week.head = self.day_1
-        week.append(data="Monday")
-        self.assertEqual(self.day_7.next.data, "Monday")
-
-        my_log.log.debug("Push Monday to end of list")
-        for node in week.generate_list():
-            my_log.log.debug(node)
-
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
         week = DoublyLinkedList()
