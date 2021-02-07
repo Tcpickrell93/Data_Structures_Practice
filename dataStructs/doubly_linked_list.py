@@ -35,20 +35,20 @@ class DoublyLinkedList:
 
     def insert_after(self, prev_node, data):
         """Create new node from data and add after provided node"""
-        # Check if prev_node exists
-        if prev_node is None:
-            return
-
         # Create new node with provided data
         new_node = Node(data)
 
         # Change links between nodes
-        next_node = prev_node.next
-        new_node.prev = prev_node
-        new_node.next = next_node
-        prev_node.next = new_node
-        if next_node:
-            next_node.prev = new_node
+        try:
+            next_node = prev_node.next
+            new_node.prev = prev_node
+            new_node.next = next_node
+            prev_node.next = new_node
+            if next_node:
+                next_node.prev = new_node
+        except AttributeError:
+            raise NodeIsNone(msg="Previous node is None",
+                             my_list=self)
 
     def append(self, data):
         """Create new node from data and add to end of list"""
@@ -73,7 +73,8 @@ class DoublyLinkedList:
         """Delete node from list where key matches the value stored in data"""
         # Check to see if list is empty
         if self.head is None:
-            return
+            raise ListIsEmpty(msg="Cannot delete node from empty list",
+                              my_list=self)
 
         # Check to see if key is head node
         temp_node = self.head
@@ -91,7 +92,8 @@ class DoublyLinkedList:
 
         # Check to see if key was found in list
         if not temp_node:
-            return
+            raise NodeNotFound(msg=f"Node with data='{key}' not found",
+                               my_list=self)
 
         # Link previous node to next node
         if temp_node.next:
@@ -105,7 +107,13 @@ class DoublyLinkedList:
         """Delete Node by postion within list"""
         # Check to see if list is empty
         if self.head is None:
-            return
+            raise ListIsEmpty(msg="Cannot delete node from empty list",
+                              my_list=self)
+
+        # Make sure position is within valid range
+        if position < 0:
+            raise InvalidPosition(msg="Position must be a positive integer",
+                                  my_list=self)
 
         # Check to see if position is head node
         temp_node = self.head
@@ -120,7 +128,12 @@ class DoublyLinkedList:
                 prev_node = temp_node
                 temp_node = temp_node.next
             else:
-                return
+                count = self.get_count()
+                msg = (
+                    f"No node at position={position}. "
+                    f"List only has {count} nodes"
+                )
+                raise NodeNotFound(msg=msg, my_list=self)
 
         # Link previous node to next node
         if temp_node.next:
@@ -134,7 +147,8 @@ class DoublyLinkedList:
         """Swap two nodes in list identified by provided key values"""
         # Check if keys are the same
         if key_1 == key_2:
-            return
+            msg="Keys entered are the same. Cannot swap a node with itself."
+            raise SameNode(msg=msg, my_list=self)
 
         # Find key_1 node
         prev_1 = None
@@ -151,8 +165,12 @@ class DoublyLinkedList:
             temp_2 = temp_2.next
 
         # Can't swap if one of them does not exist in list
-        if temp_1 is None or temp_2 is None:
-            return
+        if temp_1 is None:
+            raise NodeNotFound(msg=f"Node with data='{key_1}' not found",
+                               my_list=self)
+        if temp_2 is None:
+            raise NodeNotFound(msg=f"Node with data='{key_2}' not found",
+                               my_list=self)
 
         # Save next nodes to update links
         next_1 = temp_1.next
