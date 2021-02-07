@@ -32,7 +32,7 @@ def node_ref(new_list):
 @pytest.fixture
 def empty_list():
     """Creates an empty singly-linked list"""
-    empty = SinglyLinkedList()
+    empty = DoublyLinkedList()
     yield empty
 
 def test_list(new_list, node_ref):
@@ -64,6 +64,13 @@ def test_push_node_to_front(new_list, node_ref):
     assert node_1.data == "z"
     assert node_2 is node_ref[0]
     assert node_2.prev is node_1
+
+def test_push_node_to_front_of_empty_list(empty_list):
+    empty_list.push(data="a")
+    assert empty_list.head.data == "a"
+    assert empty_list.head.next is None
+    assert empty_list.head.prev is None
+
 
 """
     def test_insert_node_at_middle(self):
