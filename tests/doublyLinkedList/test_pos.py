@@ -53,7 +53,8 @@ def test_list(new_list, node_ref):
     assert node_2.prev is node_1
     assert node_1.prev is None
     
-
+def test_count_list(new_list):
+    assert new_list.get_count() == 4
 
 """
     def setUp(self):
