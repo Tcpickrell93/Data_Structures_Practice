@@ -138,6 +138,11 @@ def test_delete_middle_node_by_position(new_list, node_ref):
     assert node_2 is node_ref[2]
     assert node_2.prev is new_list.head
 
+def test_delete_last_node_by_position(new_list, node_ref):
+    new_list.delete_by_pos(position=3)
+    assert new_list.get_count() == 3
+    assert node_ref[2].next is None
+
 """
     def test_delete_head_by_key(self):
         my_log.log.debug("test_delete_head_by_key")
