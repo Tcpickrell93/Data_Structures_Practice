@@ -7,12 +7,7 @@ from .linked_list_exceptions import(
         InvalidPosition,
         SameNode
 )
-
-class Node:
-    """Singly-Linked List Node"""
-    def __init__(self, data=None):
-        self.data = data
-        self.next = None
+from .nodes import SLLNode as Node
 
 class SinglyLinkedList:
     """Singly-Linked List"""

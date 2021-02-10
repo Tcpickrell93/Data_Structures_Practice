@@ -7,13 +7,7 @@ from .linked_list_exceptions import(
         InvalidPosition,
         SameNode
 )
-
-class Node:
-    """Doubly-Linked List Node"""
-    def __init__(self, data=None):
-        self.data = data
-        self.prev = None
-        self.next = None
+from .nodes import DLLNode as Node
 
 class DoublyLinkedList:
     """Doubly-Linked List"""
